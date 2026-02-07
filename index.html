@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Flower Shop</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { display: flex; }
+        .products, .cart, .checkout { padding: 20px; border: 1px solid #ccc; margin: 10px; flex: 1; }
+        .product { margin-bottom: 20px; }
+        .cart-item { display: flex; justify-content: space-between; }
+        .checkout button { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="products">
+            <h2>Product Listings</h2>
+            <div id="product-list">
+                <div class="product">
+                    <h3>Beautiful Bouquet</h3>
+                    <p>Price: $30</p>
+                    <button onclick="addToCart('Beautiful Bouquet', 30)">Add to Cart</button>
+                </div>
+                <div class="product">
+                    <h3>Elegant Rose</h3>
+                    <p>Price: $25</p>
+                    <button onclick="addToCart('Elegant Rose', 25)">Add to Cart</button>
+                </div>
+                <!-- Add more products as needed -->
+            </div>
+        </div>
+        <div class="cart">
+            <h2>Shopping Cart</h2>
+            <div id="cart-items"></div>
+            <p>Total: $<span id="total">0</span></p>
+        </div>
+        <div class="checkout">
+            <h2>Checkout</h2>
+            <button onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+    <script>
+        const cart = [];
+        let total = 0;
+
+        function addToCart(product, price) {
+            cart.push({product, price});
+            total += price;
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItemsDiv = document.getElementById('cart-items');
+            cartItemsDiv.innerHTML = '';
+            cart.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `${item.product} - $${item.price}`;
+                cartItemsDiv.appendChild(div);
+            });
+            document.getElementById('total').innerText = total;
+        }
+
+        function checkout() {
+            alert(`Thank you for your purchase! Total: $${total}`);
+            cart.length = 0; // Clear cart
+            total = 0;
+            updateCart();
+        }
+    </script>
+</body>
+</html>
